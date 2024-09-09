@@ -10,32 +10,60 @@ const bucketName = 'geistesblitz';
 // 静的ファイルを提供するためのミドルウェア
 app.use(express.static(path.join(__dirname, '../public')));
 
-// Get question image and object images
-app.get('/api/get-question-and-answer', async (req, res) => {
-    const questionKey = `question/question${Math.floor(Math.random() * 60) + 1}.JPG`;  // 60問ランダムで取得
+// app.get('/api/get-random-questions', async (req, res) => {
+//     try {
+//         // Get a list of all question images
+//         const data = await s3.listObjectsV2({
+//             Bucket: bucketName,
+//             Prefix: 'question/'
+//         }).promise();
 
+//         const questionImages = data.Contents
+//             .map((item) => `https://${bucketName}.s3.${s3.config.region}.amazonaws.com/${item.Key}`)
+//             .filter((url) => url.endsWith('.JPG'));
+
+//         // Shuffle the images
+//         for (let i = questionImages.length - 1; i > 0; i--) {
+//             const j = Math.floor(Math.random() * (i + 1));
+//             [questionImages[i], questionImages[j]] = [questionImages[j], questionImages[i]];
+//         }
+//         console.log(questionImages);
+//         res.json({ questionImages });
+//     } catch (error) {
+//         console.error('Error fetching questions:', error);
+//         res.status(500).json({ message: 'Error fetching questions.' });
+//     }
+// });
+
+app.get('/api/get-random-questions', async (req, res) => {
     try {
-        const data = await s3.listObjects({
+        // Get a list of all question images
+        const data = await s3.listObjectsV2({
             Bucket: bucketName,
-            Prefix: 'object/'
+            Prefix: 'question/'
         }).promise();
 
-        const objectImages = data.Contents.map((item) => ({
-            key: item.Key,
-            url: `https://${bucketName}.s3.${s3.config.region}.amazonaws.com/${item.Key}`
-        }));
+        const questionImages = data.Contents
+            .filter((item) => item.Key.endsWith('.JPG'))
+            .map((item) => ({
+                key: item.Key,
+                url: `https://${bucketName}.s3.${s3.config.region}.amazonaws.com/${item.Key}`
+            }));
 
-        res.json({ 
-            questionImage: `https://${bucketName}.s3.${s3.config.region}.amazonaws.com/${questionKey}`, 
-            objectImages 
-        });
+        // Shuffle the images
+        for (let i = questionImages.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [questionImages[i], questionImages[j]] = [questionImages[j], questionImages[i]];
+        }
+
+        // console.log(questionImages);
+        res.json(questionImages);  // Return the array directly
     } catch (error) {
-        console.error('Error fetching question and answer:', error);
-        res.status(500).json({ message: 'Error fetching question and answer.' });
+        console.error('Error fetching questions:', error);
+        res.status(500).json({ message: 'Error fetching questions.' });
     }
 });
 
-// S3からオブジェクト画像を取得するエンドポイントを追加
 app.get('/api/get-objects', async (req, res) => {
     const bucketName = 'geistesblitz';
     const objectKeys = Array.from({ length: 5 }, (_, i) => `object/object${i + 1}.JPG`);

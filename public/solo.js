@@ -3,15 +3,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const objectImages = document.querySelectorAll('.object-image');
     const scoreDisplay = document.getElementById('score');
     let score = 0;
-    let correctObjectKey = ''; // 正解のオブジェクトのキーを保持する変数
+    let correctObject = ''; // 正解のオブジェクトのキーを保持する変数
 
     // 問題画像をロードする関数
-    function loadQuestionAndAnswer() {
-        fetch('/api/get-question-and-answer')
+    function loadRandomQuestions() {
+        fetch('/api/get-random-questions')
             .then(response => response.json())
             .then(data => {
-                questionImage.src = data.imageUrl;
-                correctObjectKey = data.correctObjectKey; // 正解のオブジェクトキーを取得
+                // データが配列であることを前提に、最初の問題画像を設定
+                if (Array.isArray(data) && data.length > 0) {
+                    const randomQuestion = data[0]; // 一つ目の問題を選択
+                    questionImage.src = randomQuestion.url; // 問題画像のURLを設定
+                    // correctObjectKey = randomQuestion.key; // 正解のキーを設定
+                } else {
+                    console.error('Unexpected data format or empty question list:', data);
+                }
             })
             .catch(error => console.error('Error loading question image:', error));
     }
@@ -48,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // 新しい問題とオブジェクトをロード
-        loadQuestionAndAnswer();
+        loadRandomQuestions();
         loadObjectImages();
     }
 
@@ -59,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 初期ロード
-    loadQuestionAndAnswer();
+    loadRandomQuestions();
     loadObjectImages();
 
     // オブジェクト画像にクリックイベントを設定
