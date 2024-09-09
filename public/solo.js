@@ -4,9 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const scoreDisplay = document.getElementById('score');
     let score = 0;
 
-    function loadRandomQuestion() {
-        // ここでLambdaからランダムな問題画像のURLを取得し、questionImageに設定
-        fetch('/api/get-random-question')
+    function loadQuestion() {
+        fetch('/api/get-question')
             .then(response => response.json())
             .then(data => {
                 questionImage.src = data.imageUrl;
@@ -15,15 +14,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function loadObjectImages() {
-        // ここでLambdaからオブジェクト画像のURLを取得し、objectImagesに設定
         fetch('/api/get-objects')
             .then(response => response.json())
             .then(data => {
-                data.objectUrls.forEach((url, index) => {
-                    if (objectImages[index]) {
-                        objectImages[index].src = url;
-                    }
-                });
+                // 受け取るデータが直接配列であることを前提に
+                if (Array.isArray(data)) {
+                    data.forEach((obj, index) => {
+                        if (objectImages[index]) {
+                            objectImages[index].src = obj.url; // url を設定
+                        }
+                    });
+                } else {
+                    console.error('Unexpected data format:', data);
+                }
             })
             .catch(error => console.error('Error loading object images:', error));
     }
@@ -33,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
         scoreDisplay.textContent = score;
     }
 
-    // 初期ロード
-    loadRandomQuestion();
+    // Initial load
+    loadQuestion();
     loadObjectImages();
 });
