@@ -34,7 +34,6 @@ app.get('/api/get-objects', async (req, res) => {
                 };
             })
         );
-        console.log(objectImages);
         res.status(200).json(objectImages);
     } catch (error) {
         console.error('Error fetching object images:', error);

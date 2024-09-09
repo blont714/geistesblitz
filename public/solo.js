@@ -3,16 +3,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const objectImages = document.querySelectorAll('.object-image');
     const scoreDisplay = document.getElementById('score');
     let score = 0;
+    let correctObjectKey = ''; // 正解のオブジェクトのキーを保持する変数
 
+    // 問題画像をロードする関数
     function loadQuestion() {
         fetch('/api/get-question')
             .then(response => response.json())
             .then(data => {
                 questionImage.src = data.imageUrl;
+                correctObjectKey = data.correctObjectKey; // 正解のオブジェクトキーを取得
             })
             .catch(error => console.error('Error loading question image:', error));
     }
 
+    // オブジェクト画像をロードする関数
     function loadObjectImages() {
         fetch('/api/get-objects')
             .then(response => response.json())
@@ -31,12 +35,35 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error loading object images:', error));
     }
 
+    // オブジェクトをクリックしたときの正誤判定
+    function handleObjectClick(event) {
+        const clickedObjectKey = event.target.dataset.key; // クリックされたオブジェクトのキーを取得
+
+        if (clickedObjectKey === correctObjectKey) {
+            updateScore(score + 1); // 正解ならスコアを増やす
+            alert('正解！');
+        } else {
+            updateScore(score - 1); // 不正解ならスコアを減らす
+            alert('不正解！');
+        }
+
+        // 新しい問題とオブジェクトをロード
+        loadQuestion();
+        loadObjectImages();
+    }
+
+    // スコアを更新する関数
     function updateScore(newScore) {
         score = newScore;
         scoreDisplay.textContent = score;
     }
 
-    // Initial load
+    // 初期ロード
     loadQuestion();
     loadObjectImages();
+
+    // オブジェクト画像にクリックイベントを設定
+    objectImages.forEach(img => {
+        img.addEventListener('click', handleObjectClick);
+    });
 });
