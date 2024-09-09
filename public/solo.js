@@ -4,6 +4,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const scoreDisplay = document.getElementById('score');
     let score = 0;
     let correctObject = ''; // 正解のオブジェクトのキーを保持する変数
+    let answerData = null; // answer.json のデータを保持する変数
+
+    // answer.jsonをロードする関数
+    function loadAnswerData() {
+        return fetch('answer.json') // answer.json のパスを適切に設定
+            .then(response => response.json())
+            .then(data => {
+                answerData = data; // データを保持
+            })
+            .catch(error => console.error('Error loading answer data:', error));
+    }
 
     // 問題画像をロードする関数
     function loadRandomQuestions() {
@@ -12,14 +23,28 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 // データが配列であることを前提に、最初の問題画像を設定
                 if (Array.isArray(data) && data.length > 0) {
-                    const randomQuestion = data[0]; // 一つ目の問題を選択
-                    questionImage.src = randomQuestion.url; // 問題画像のURLを設定
-                    // correctObjectKey = randomQuestion.key; // 正解のキーを設定
+                    questionImage.src = data[0].url; // ランダムな問題画像を設定
+                    setCorrectObjectKey(); // 正解のオブジェクトキーを設定
+                    console.log(correctObject)
                 } else {
                     console.error('Unexpected data format or empty question list:', data);
                 }
             })
             .catch(error => console.error('Error loading question image:', error));
+    }
+
+    // 正解のオブジェクトキーを設定する関数
+    function setCorrectObjectKey() {
+        if (!answerData) return;
+
+        // 現在の問題画像に対応する解答を探す
+        const answer = answerData.questionImages.find(item => item.questionImage === questionImage.src);
+
+        if (answer) {
+            correctObject = answer.correctObject; // 正解のオブジェクトキーを設定
+        } else {
+            console.error('Correct answer not found for the current question image.');
+        }
     }
 
     // オブジェクト画像をロードする関数
@@ -43,9 +68,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // オブジェクトをクリックしたときの正誤判定
     function handleObjectClick(event) {
-        const clickedObjectKey = event.target.dataset.key; // クリックされたオブジェクトのキーを取得
-
-        if (clickedObjectKey === correctObjectKey) {
+        const clickedObject = event.target.dataset.key; // クリックされたオブジェクトのキーを取得
+        console.log(clickedObject)
+        console.log(correctObject)
+        if (clickedObject === correctObject) {
             updateScore(score + 1); // 正解ならスコアを増やす
             alert('正解！');
         } else {
@@ -65,8 +91,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 初期ロード
-    loadRandomQuestions();
-    loadObjectImages();
+    loadAnswerData().then(() => {
+        loadRandomQuestions();
+        loadObjectImages();
+    });
 
     // オブジェクト画像にクリックイベントを設定
     objectImages.forEach(img => {
