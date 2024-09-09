@@ -59,3 +59,83 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+/* ゲームモード選択画面のスタイル */
+#mode-selection {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1280px;
+    height: 720px;
+    background-color: white;
+    border: 5px solid black; /* 黒い枠線を追加 */
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#mode-selection h1 {
+    margin-top: 20px;
+}
+
+#mode-selection button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#mode-selection button:hover {
+    background-color: #45a049;
+}
+
+/* ソロモードの画面構成 */
+#question-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#question-image {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#objects-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: center;
+}
+
+.object-image {
+    width: 20%;
+    height: auto;
+    margin: 10px;
+}
+
+#score-display {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 24px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ソロモード - おばけキャッチ</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div id="container">
+        <!-- 左側に問題画像を表示 -->
+        <div id="question-container">
+            <img id="question-image" src="" alt="問題画像">
+        </div>
+
+        <!-- 右側にオブジェクト画像を表示 -->
+        <div id="objects-container">
+            <!-- ここに5枚のオブジェクト画像が表示される -->
+            <img class="object-image" src="" alt="オブジェクト1">
+            <img class="object-image" src="" alt="オブジェクト2">
+            <img class="object-image" src="" alt="オブジェクト3">
+            <img class="object-image" src="" alt="オブジェクト4">
+            <img class="object-image" src="" alt="オブジェクト5">
+        </div>
+
+        <!-- プレイヤーの得点を表示 -->
+        <div id="score-display">
+            得点: <span id="score">0</span>
+        </div>
+    </div>
+    <script src="/solo.js"></script>
+</body>
+</html>
