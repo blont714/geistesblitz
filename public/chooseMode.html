@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ゲームモード選択</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div id="container">
+        <div id="choose-mode-screen">
+            <!-- モード選択のコンテンツをここに追加 -->
+            <h1>ゲームモード選択</h1>
+            <button onclick="startGame()">ソロモード</button>
+            <button onclick="startMultiplayer()">マルチプレイヤー</button>
+        </div>
+    </div>
+    <script>
+        function startGame() {
+            // ソロモードの処理
+            window.location.href = 'solo.html'; // 仮のURL
+        }
+
+        function startMultiplayer() {
+            // マルチプレイヤーの処理
+            window.location.href = 'multiplayer.html'; // 仮のURL
+        }
+    </script>
+</body>
+</html>
