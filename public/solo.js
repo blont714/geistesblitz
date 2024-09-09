@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let correctObjectKey = ''; // 正解のオブジェクトのキーを保持する変数
 
     // 問題画像をロードする関数
-    function loadQuestion() {
-        fetch('/api/get-question')
+    function loadQuestionAndAnswer() {
+        fetch('/api/get-question-and-answer')
             .then(response => response.json())
             .then(data => {
                 questionImage.src = data.imageUrl;
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // 新しい問題とオブジェクトをロード
-        loadQuestion();
+        loadQuestionAndAnswer();
         loadObjectImages();
     }
 
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 初期ロード
-    loadQuestion();
+    loadQuestionAndAnswer();
     loadObjectImages();
 
     // オブジェクト画像にクリックイベントを設定

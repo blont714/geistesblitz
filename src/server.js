@@ -1,23 +1,39 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const path = require('path');
-const { PORT } = require('./config');
 const AWS = require('aws-sdk');
 
 const app = express();
-
-// S3の設定
 const s3 = new AWS.S3({ region: 'ap-northeast-1' });
+const port = 3000;
+const bucketName = 'geistesblitz';
 
-// ミドルウェア設定
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// 静的ファイルの提供
+// 静的ファイルを提供するためのミドルウェア
 app.use(express.static(path.join(__dirname, '../public')));
 
-// APIルート設定
-app.use('/api', require('./routes'));
+// Get question image and object images
+app.get('/api/get-question-and-answer', async (req, res) => {
+    const questionKey = `question/question${Math.floor(Math.random() * 60) + 1}.JPG`;  // 60問ランダムで取得
+
+    try {
+        const data = await s3.listObjects({
+            Bucket: bucketName,
+            Prefix: 'object/'
+        }).promise();
+
+        const objectImages = data.Contents.map((item) => ({
+            key: item.Key,
+            url: `https://${bucketName}.s3.${s3.config.region}.amazonaws.com/${item.Key}`
+        }));
+
+        res.json({ 
+            questionImage: `https://${bucketName}.s3.${s3.config.region}.amazonaws.com/${questionKey}`, 
+            objectImages 
+        });
+    } catch (error) {
+        console.error('Error fetching question and answer:', error);
+        res.status(500).json({ message: 'Error fetching question and answer.' });
+    }
+});
 
 // S3からオブジェクト画像を取得するエンドポイントを追加
 app.get('/api/get-objects', async (req, res) => {
@@ -41,7 +57,6 @@ app.get('/api/get-objects', async (req, res) => {
     }
 });
 
-// サーバーの起動
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
 });
