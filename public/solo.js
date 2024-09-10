@@ -97,18 +97,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // オブジェクトをクリックしたときの正誤判定
     function handleObjectClick(event) {
-        const clickedObject = event.target.dataset.key; // クリックされたオブジェクトのキーを取得
-        if (clickedObject === correctObject) {
+        const clickedObjectKey = event.target.dataset.key; // クリックされたオブジェクトのキーを取得
+    
+        if (clickedObjectKey === correctObject) {
             updateScore(score + 1); // 正解ならスコアを増やす
-            alert('正解！');
+            showResult('正解！', 'green'); // 正解のメッセージを表示
         } else {
             updateScore(score - 1); // 不正解ならスコアを減らす
-            alert('不正解！');
+            showResult('不正解！', 'red'); // 不正解のメッセージを表示
         }
 
         // 新しい問題とオブジェクトをロード
         showNextQuestion();
         // loadObjectImages();
+    }
+
+    // 判定結果を画面下部に表示する関数
+    function showResult(message, color) {
+        const resultDisplay = document.getElementById('result-display');
+        resultDisplay.textContent = message;
+        resultDisplay.style.backgroundColor = color;
     }
 
     // スコアを更新する関数

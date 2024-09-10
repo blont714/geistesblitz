@@ -30,6 +30,25 @@ html, body {
     background-size: cover;
 }
 
+/* タイトル表示のスタイル */
+#title-display {
+    position: absolute;
+    top: 20px; /* 画面の上から20px */
+    right: 40px; /* 画面の右から20px */
+    text-align: center;
+    color: #ff5722; /* おしゃれなオレンジ色 */
+    font-size: 4rem; /* フォントサイズを大きくする */
+    font-weight: bold; /* 太字にする */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 影をつける */
+    line-height: 1.2; /* 行間を調整して改行のスペースを広げる */
+    background-color: rgba(223, 188, 33, 0.3);
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+}
+
 /* テキストボックスとボタン */
 #controls {
     position: absolute;
@@ -146,4 +165,19 @@ button:hover {
     left: 20px;
     font-size: 16px;
     color: black;
+}
+
+/* 判定結果の表示スタイル */
+#result-display {
+    position: absolute; /* 画面内の指定位置に配置するためのスタイル */
+    bottom: 20px; /* 画面の下から20pxの位置 */
+    left: 50%; /* 左から中央に配置 */
+    transform: translateX(-50%); /* 中央揃え */
+    background-color: rgba(0, 0, 0, 0.7); /* 背景色を半透明に */
+    color: #ffffff; /* 文字色を白に */
+    padding: 10px 20px; /* 内側の余白 */
+    border-radius: 5px; /* 角を丸める */
+    font-size: 1.2rem; /* フォントサイズを調整 */
+    text-align: center; /* テキストを中央揃え */
+    z-index: 10; /* 他の要素よりも前に表示するための z-index */
 }
