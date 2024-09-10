@@ -125,6 +125,23 @@ button:hover {
     justify-content: center;
 }
 
+/* 問題数表示のスタイル */
+#current-question {
+    position: absolute; /* 画面内の指定位置に配置するためのスタイル */
+    top: 20px; /* 描画範囲の上端から20pxの位置 */
+    left: 20px; /* 描画範囲の左端から20pxの位置 */
+    background-color: rgba(0, 0, 0, 0.7); /* 背景色を半透明に */
+    color: #ffffff; /* 文字色を白に */
+    padding: 10px 15px; /* 内側の余白 */
+    border-radius: 10px; /* 角を丸める */
+    font-size: 1.5rem; /* フォントサイズを調整 */
+    font-weight: bold; /* 太字にする */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* 影をつける */
+    border: 2px solid #ff5722; /* オレンジ色の枠線 */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); /* 輪郭に影をつける */
+}
+
+
 #question-image {
     max-width: 100%;
     max-height: 100%;
