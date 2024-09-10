@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // 新しい問題とオブジェクトをロード
         showNextQuestion();
-        loadObjectImages();
+        // loadObjectImages();
     }
 
     // スコアを更新する関数
