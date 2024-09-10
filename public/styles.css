@@ -138,3 +138,12 @@ button:hover {
     padding: 10px;
     border-radius: 5px;
 }
+
+/* 名前を左下に表示するスタイル */
+#name-display {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-size: 16px;
+    color: black;
+}

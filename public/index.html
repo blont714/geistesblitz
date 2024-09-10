@@ -18,6 +18,8 @@
         function startGame() {
             const playerName = document.getElementById('player-name').value;
             if (playerName) {
+                // プレイヤー名を localStorage に保存
+                localStorage.setItem('playerName', playerName);
                 window.location.href = '/chooseMode.html';
             } else {
                 alert('名前を入力してください！');

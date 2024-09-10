@@ -3,10 +3,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const objectImages = document.querySelectorAll('.object-image');
     const scoreDisplay = document.getElementById('score');
     const questionNumberDisplay = document.getElementById('current-question');
+    const playerName = localStorage.getItem('playerName');
+    const nameDisplay = document.getElementById('name-display');
     let score = 0;
     let currentQuestionNumber = 0; // 現在の問題番号を管理する変数
     let correctObject = ''; // 正解のオブジェクトのキーを保持する変数
     let answerData = null; // answer.json のデータを保持する変数
+    if (playerName && nameDisplay) {
+        nameDisplay.textContent = playerName; // プレイヤー名を表示
+    }
 
     // answer.jsonをロードする関数
     function loadAnswerData() {

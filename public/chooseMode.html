@@ -14,6 +14,10 @@
             <button id="multi-player-mode">マルチプレイヤーモード</button>
             <button id="rules">ルール</button>
         </div>
+        <!-- 左下にプレイヤー名を表示 -->
+        <div id="name-display">
+            プレイヤー名
+        </div>
     </div>
     <script>
         document.getElementById('solo-mode').addEventListener('click', function() {
@@ -28,5 +32,7 @@
             window.location.href = 'rules.html'; // ルールページの仮URL
         });
     </script>
+
+    <script src="/chooseMode.js"></script>
 </body>
 </html>
