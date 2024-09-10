@@ -95,23 +95,28 @@ button:hover {
 
 #mode-selection h1 {
     margin-top: 20px;
+    font-size: 3rem;
+    color: #333;
 }
 
 #mode-selection button {
     display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    font-size: 18px;
+    margin: 80px auto;
+    padding: 15px 30px;
+    font-size: 1.5rem;
     background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* スムーズな色変化とサイズ変化 */
 }
 
 #mode-selection button:hover {
-    background-color: #45a049;
+    background-color: #ff5722; /* オレンジ色に変更 */
+    transform: scale(1.05); /* ホバー時にボタンが少し大きくなる */
 }
+
 
 /* ソロモードの画面構成 */
 #question-container {
@@ -180,8 +185,13 @@ button:hover {
     position: absolute;
     bottom: 20px;
     left: 20px;
-    font-size: 16px;
-    color: black;
+    font-size: 0.7rem; /* 少し大きめのフォントサイズ */
+    color: #333; /* シックな暗めのグレー */
+    background-color: rgba(255, 255, 255, 0.7); /* 少し透けた白い背景 */
+    padding: 10px 20px;
+    border-radius: 5px; /* 角を丸く */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* 軽い影をつけて浮いている感じに */
+    font-weight: bold;
 }
 
 /* 判定結果の表示スタイル */
@@ -240,11 +250,16 @@ button:hover {
 
 #return-button {
     font-size: 1.5rem;
-    padding: 10px 20px;
+    padding: 15px 30px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 10px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* スムーズな色変化とサイズ変化 */
 }
 
-
 #return-button:hover {
-    background-color: #e64a19; /* ホバー時に少し濃いオレンジ色 */
+    background-color: #ff5722; /* オレンジ色に変更 */
+    transform: scale(1.05); /* ホバー時に少し大きくなる */
 }
