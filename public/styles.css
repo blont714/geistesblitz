@@ -52,31 +52,34 @@ h1 {
 /* テキストボックスとボタン */
 #controls {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
+    bottom: 40px;
+    right: 80px;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center; /* 中央揃えに変更 */
 }
 
 input[type="text"] {
-    padding: 10px;
-    font-size: 16px;
-    margin-bottom: 10px;
+    padding: 15px; /* パディングを増やす */
+    font-size: 24px; /* フォントサイズを大きくする */
+    margin-bottom: 30px; /* ボタンとの間隔を設定 */
+    width: 300px; /* テキストボックスの幅を設定 */
 }
 
 button {
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 15px 30px; /* パディングを増やす */
+    font-size: 24px; /* フォントサイズを大きくする */
     background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px; /* 角を丸める */
     cursor: pointer;
+    margin-bottom: 20px; /* ボタン下の余白を追加 */
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #ff5722; /* オレンジ色に変更 */
+    transform: scale(1.05); /* ホバー時にボタンが少し大きくなる */
 }
 
 /* ゲームモード選択画面のスタイル */
@@ -87,21 +90,37 @@ button:hover {
     transform: translate(-50%, -50%);
     width: 1280px;
     height: 720px;
+    background: url('/images/title.jpg') no-repeat center center;
+    background-size: cover;
     background-color: white;
-    border: 5px solid black; /* 黒い枠線を追加 */
     text-align: center;
     box-sizing: border-box;
 }
 
+#mode-selection::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.4); /* 70%の白のオーバーレイを追加して薄く */
+    z-index: -1; /* 背景画像よりも手前、コンテンツよりも奥 */
+}
+
+/* タイトルのスタイル */
 #mode-selection h1 {
-    margin-top: 20px;
-    font-size: 3rem;
-    color: #333;
+    font-size: 4rem; /* フォントサイズを大きくする */
+    margin: 80px 0 40px; /* 上側の余白を80pxに設定 */
+    color: white; /* タイトルの文字色を白に */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* 影をつけて視認性を向上 */
+    background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒い背景色を追加 */
+    padding: 20px; /* パディングを追加 */
 }
 
 #mode-selection button {
     display: block;
-    margin: 80px auto;
+    margin: 60px auto;
     padding: 15px 30px;
     font-size: 1.5rem;
     background-color: #4CAF50;
@@ -185,7 +204,7 @@ button:hover {
     position: absolute;
     bottom: 20px;
     left: 20px;
-    font-size: 0.7rem; /* 少し大きめのフォントサイズ */
+    font-size: 1.0rem; /* 少し大きめのフォントサイズ */
     color: #333; /* シックな暗めのグレー */
     background-color: rgba(255, 255, 255, 0.7); /* 少し透けた白い背景 */
     padding: 10px 20px;
@@ -214,14 +233,35 @@ button:hover {
     position: relative;
     width: 1280px;
     height: 720px;
-    border: 2px solid black; /* 黒い枠線 */
-    margin: 0 auto; /* 中央に配置 */
+    background: url('/images/title.jpg') no-repeat center center;
+    background-size: cover;
+    margin: 0 auto;
     box-sizing: border-box;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: white; /* 背景色 */
+}
+
+#result-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.4); /* 背景画像を薄く表示 */
+    z-index: -1;
+}
+
+/* 新しい四角形エリア */
+#result-content {
+    background-color: rgba(0, 0, 0, 0.7); /* 半透明の黒い背景 */
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+    box-sizing: border-box;
+    width: 80%; /* コンテンツの幅を調整 */
 }
 
 #result-title {
@@ -238,7 +278,7 @@ button:hover {
 #result-text {
     font-size: 2rem;
     font-weight: bold;
-    color: #333; /* シックな色 */
+    color: white; /* 白い文字で目立たせる */
 }
 
 #return-button-container {
@@ -256,10 +296,10 @@ button:hover {
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease; /* スムーズな色変化とサイズ変化 */
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 #return-button:hover {
-    background-color: #ff5722; /* オレンジ色に変更 */
-    transform: scale(1.05); /* ホバー時に少し大きくなる */
+    background-color: #ff5722;
+    transform: scale(1.05);
 }
