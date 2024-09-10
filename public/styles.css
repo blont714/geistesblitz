@@ -198,3 +198,53 @@ button:hover {
     text-align: center; /* テキストを中央揃え */
     z-index: 10; /* 他の要素よりも前に表示するための z-index */
 }
+
+/* 結果画面全体のスタイル */
+#result-container {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    border: 2px solid black; /* 黒い枠線 */
+    margin: 0 auto; /* 中央に配置 */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white; /* 背景色 */
+}
+
+#result-title {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#result-details {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+#result-text {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333; /* シックな色 */
+}
+
+#return-button-container {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+#return-button {
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+
+#return-button:hover {
+    background-color: #e64a19; /* ホバー時に少し濃いオレンジ色 */
+}

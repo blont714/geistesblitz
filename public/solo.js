@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
             updateScore(score + 1); // 正解ならスコアを増やす
             showResult('正解！', 'green'); // 正解のメッセージを表示
         } else {
-            updateScore(score - 1); // 不正解ならスコアを減らす
+            // updateScore(score - 1); // 不正解ならスコアを減らす
             showResult('不正解！', 'red'); // 不正解のメッセージを表示
         }
 
@@ -123,6 +123,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateScore(newScore) {
         score = newScore;
         scoreDisplay.textContent = score;
+    
+        // localStorage に得点を保存
+        localStorage.setItem('score', score);
     }
 
     // 初期ロード
