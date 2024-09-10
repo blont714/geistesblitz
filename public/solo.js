@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentQuestionNumber = 0; // 現在の問題番号を管理する変数
     let correctObject = ''; // 正解のオブジェクトのキーを保持する変数
     let answerData = null; // answer.json のデータを保持する変数
+    let questionList = []; // 問題リストを保持する変数
+    const totalQuestions = 5; // 全部で60問
+
     if (playerName && nameDisplay) {
         nameDisplay.textContent = playerName; // プレイヤー名を表示
     }
@@ -25,20 +28,38 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 問題画像をロードする関数
     function loadRandomQuestions() {
-        fetch('/api/get-random-questions')
-            .then(response => response.json())
-            .then(data => {
-                // データが配列であることを前提に、最初の問題画像を設定
-                if (Array.isArray(data) && data.length > 0) {
-                    questionImage.src = data[0].url; // ランダムな問題画像を設定
-                    setCorrectObjectKey(); // 正解のオブジェクトキーを設定
-                    currentQuestionNumber++; // 問題番号をインクリメント
-                    questionNumberDisplay.textContent = currentQuestionNumber; // 表示を更新
-                } else {
-                    console.error('Unexpected data format or empty question list:', data);
-                }
-            })
-            .catch(error => console.error('Error loading question image:', error));
+
+        // 問題リストが空であれば取得
+        if (questionList.length === 0) {
+            fetch('/api/get-random-questions')
+                .then(response => response.json())
+                .then(data => {
+                    if (Array.isArray(data) && data.length > 0) {
+                        questionList = data; // 質問リストを保存
+                        showNextQuestion(); // 次の問題を表示
+                    } else {
+                        console.error('Unexpected data format or empty question list:', data);
+                    }
+                })
+                .catch(error => console.error('Error loading question image:', error));
+        } else {
+            showNextQuestion(); // 次の問題を表示
+        }
+    }
+
+    // 次の問題を表示する関数
+    function showNextQuestion() {
+        if (currentQuestionNumber >= totalQuestions) {
+            // 60問すべて終了したら結果画面に遷移
+            window.location.href = '/result.html';
+            return;
+        }
+
+        const question = questionList[currentQuestionNumber];
+        questionImage.src = question.url; // ランダムな問題画像を設定
+        setCorrectObjectKey(); // 正解のオブジェクトキーを設定
+        currentQuestionNumber++; // 問題番号をインクリメント
+        questionNumberDisplay.textContent = currentQuestionNumber; // 表示を更新
     }
 
     // 正解のオブジェクトキーを設定する関数
@@ -86,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // 新しい問題とオブジェクトをロード
-        loadRandomQuestions();
+        showNextQuestion();
         loadObjectImages();
     }
 
