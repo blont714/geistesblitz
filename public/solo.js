@@ -2,7 +2,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const questionImage = document.getElementById('question-image');
     const objectImages = document.querySelectorAll('.object-image');
     const scoreDisplay = document.getElementById('score');
+    const questionNumberDisplay = document.getElementById('current-question');
     let score = 0;
+    let currentQuestionNumber = 0; // 現在の問題番号を管理する変数
     let correctObject = ''; // 正解のオブジェクトのキーを保持する変数
     let answerData = null; // answer.json のデータを保持する変数
 
@@ -25,7 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (Array.isArray(data) && data.length > 0) {
                     questionImage.src = data[0].url; // ランダムな問題画像を設定
                     setCorrectObjectKey(); // 正解のオブジェクトキーを設定
-                    console.log(correctObject)
+                    currentQuestionNumber++; // 問題番号をインクリメント
+                    questionNumberDisplay.textContent = currentQuestionNumber; // 表示を更新
                 } else {
                     console.error('Unexpected data format or empty question list:', data);
                 }
@@ -69,8 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // オブジェクトをクリックしたときの正誤判定
     function handleObjectClick(event) {
         const clickedObject = event.target.dataset.key; // クリックされたオブジェクトのキーを取得
-        console.log(clickedObject)
-        console.log(correctObject)
         if (clickedObject === correctObject) {
             updateScore(score + 1); // 正解ならスコアを増やす
             alert('正解！');
